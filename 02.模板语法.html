@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法</title>
+</head>
+<body>
+    <div id="div">
+        <!-- 插值 | 双括号表达式 -->
+        <p>{{msg}}</p>
+        <p>{{msg.toUpperCase()}}</p>
+
+        <hr>
+        <!-- 强制数据绑定 -->
+        <a v-bind:href="url">强制数据绑定</a><br>
+        <a :href="url">强制数据绑定</a>  <!-- 简写 -->
+
+        <hr>
+        <!-- 绑定事件监听 -->
+        <button v-on:click="handle">button</button><br>
+        <button @click="handle">button</button> <!-- 简写 -->
+    </div>
+
+<script src="./js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#div',
+        data: {
+            msg:'just do it',
+            url:'https://www.baidu.com'
+        },
+        methods: {
+            handle(event){
+                alert(event.target.innerText)
+            }
+        },
+    })
+
+    /* 
+        表达式与语句
+            表达式不是完整结构，需要其他结构配置才能正常存在
+            语句可以独立存在
+
+            表达式会返回数据结果
+            语句不会
+    */
+   function fn(){} //语句
+   var fn = function (){} //表达式
+</script>
+</body>
+</html>

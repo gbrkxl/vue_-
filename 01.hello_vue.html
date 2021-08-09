@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue</title>
+</head>
+<body>
+<!-- 模板页面 html + js -->
+<div id="test">
+    <!-- 
+        指令语法 vue自定义的标签属性，属性值是js表达式 v-model 
+        插值语法 动态显示数据(只能写在标签文本里面) {{msg}}
+        指令和插值中的表达式自动从data中动态取数据
+    -->
+    <input type="text" v-model="msg">
+    <p>Hello {{msg}}</p>
+    <!-- <p>Hello {{msg}}</p> -->
+</div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script> -->
+<script src="./js/vue.js"></script>
+<script>
+    // 创建vue实例
+    new Vue({ //配置对象：属性名是一些特定的名字
+        // element 选择器 用来查找根元素
+        el:'#test',
+        data:{ //为模板页面提供数据
+            msg:'atguigu'
+            /* 
+                双向数据绑定
+                    data <=> 模板页面template
+            */
+        }
+    })//.$mount('#test')
+</script>
+</body>
+</html>
