@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed,watch</title>
+</head>
+<body>
+    <div id="demo">
+        姓: <input type="text" placeholder="First Name" v-model="firstName"><br>
+        名: <input type="text" placeholder="Last Name" v-model="lastName"><br>
+        姓名1(单向): <input type="text" placeholder="Full Name1" v-model="fullName1"><br>
+        姓名2(单向): <input type="text" placeholder="Full Name2" v-model="fullName2"><br>
+        姓名3(双向): <input type="text" placeholder="Full Name3" v-model="fullName3"><br>
+      </div>
+
+<script src="./js/vue.js"></script>
+<!-- <script>
+    /*  
+        1. vue控制的所有回调的this都是vm/组件对象
+        2. vue给vm定义一些与data中的属性对应的属性
+            同名
+            getter方法: 当通过vm.xxx读取属性值时, 读取data对象中同名属性的值
+            setter方法: 当通过vm.xxx = value指定新的值时, 值就保存data中对应的属性上
+            数据代理: vm._data.xxx  ===>  vm.xxx  通过vm代理对vm内部的data对象的属性的操作(读/写)
+        
+        3. 什么时候使用计算属性?
+            如果要显示的数据可以根据现有的数据计算产生 
+    */
+    Vue.config.productionTip = false
+    let vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'A',
+            lastName: 'B',
+            fullName2: 'A-B'
+        },
+        /* 
+            计算属性
+                初始时调用一次
+                依赖数据发生变化时调用
+        */
+        computed: {
+            fullName1(){
+                return this.firstName + '-' + this.lastName
+            },
+            // 双向数据绑定
+            fullName3: {
+                // 计算属性存在缓存, 多次读取只执行一次getter计算
+                get(){
+                    return this.firstName + '-' + this.lastName
+                },
+                set(value){
+                    var arr = value.split('-')
+                    this.firstName = arr[0]
+                    this.lastName = arr[1]
+                }
+            }
+        },
+
+        /* 监视 */
+        watch:{
+            firstName(value){
+                this.fullName2 = value + '-' + this.lastName
+            }
+        }
+    })
+
+    vm.$watch('lastName',function(value){
+        this.fullName2 = this.firstName + '-' + value
+    })
+</script> -->
+<script>
+    Vue.config.productionTip = false
+    let vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'a',
+            lastName: 'b',
+            fullName2: 'a-b'
+        },
+        // 计算
+        computed: {
+            fullName1(){
+                console.log('fullName1 getter')
+                return this.firstName + '-' + this.lastName
+            },
+            fullName3:{
+                get(){
+                    console.log('fullName3 getter')
+                    return this.firstName + '-' + this.lastName
+                },
+                set(value){
+                    console.log('fullName3 setter')
+                    const arr = value.split('-')
+                    this.firstName = arr[0]
+                    this.lastName = arr[1]
+                }
+            }
+        },
+        // 监视
+        watch: {
+            firstName(value) {
+                this.fullName2 = value + '-' + this.lastName
+            }
+        }
+    })
+    vm.$watch('lastName',function(value){
+        this.fullName2 = this.firstName + '-' + value
+    })
+    console.log(vm)
+</script>
+</body>
+</html>

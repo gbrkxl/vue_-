@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineProperty</title>
+</head>
+<body>
+    
+<!-- <script src="./js/vue.js"></script> -->
+<script>
+    var p = {
+        firstName: 'A',
+        lastName: 'B'
+    }
+
+    Object.defineProperty(p,'fullName',{ 
+        /* 
+            回调函数
+                什么时候调用
+                有什么用
+                this的指向
+        */
+        // 当读取属性值时自动调用，将函数的返回值作为属性值，this是属性所在的对象
+        get(){
+            return p.firstName + '-' + p.lastName
+        },
+        // 当修改了属性值后调用，将更新后的属性值作为参数，用来监视属性值的变化，this是属性所在的对象
+        set(value){
+            var arr = value.split('-')
+            p.firstName = arr[0]
+            p.lastName = arr[1]
+        }
+    })
+
+    console.log(p.fullName)
+
+    p.firstName = 'C'
+    p.lastName = 'D'
+    console.log(p.fullName)
+
+    p.fullName = 'E-F'
+    console.log(p.firstName,p.lastName)
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定class和style</title>
+    <style>
+        .classA {
+          color: red;
+        }
+        .classB {
+          background: blue;
+        }
+        .classC {
+          font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo">
+        <!-- 
+            属性值为变量时
+            类名不确定
+         -->
+        <p v-bind:class="color">aaaaaa</p>
+        <!-- 
+            属性值为对象时,类的属性会随对象属性的属性值变化 
+            类名确定,但不确定是否有
+        -->
+        <p :class="{classA:hasA,classC:hasC}">bbbbbb</p>
+        <!-- 属性值为数组时,数组的有几个值,类就会有几个 -->
+        <p :class="['classB','classC']">cccccc</p>
+
+        <!-- 
+            有类名确定,有类名不确定
+            静态的class和动态的class混合使用
+         -->
+        <p class="classA" :class="{classC:hasC}">dddddd</p>
+
+        <p :style="{color:sColor,fontSize:size+'px'}">eeeeee</p>
+        <button v-on:click="handle">class</button>
+    </div>
+
+<script src="./js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#demo',
+        data: {
+            color: 'classA',
+            hasA: 'true',
+            hasC: 'false',
+            sColor: 'classA',
+            size:20
+        },
+        methods: {
+            handle(){
+                this.color = 'classC',
+                this.hasA = !this.hasA,
+                this.sColor = '#666666',
+                this.size = 30
+            }
+        },
+    })
+</script>
+</body>
+</html>
