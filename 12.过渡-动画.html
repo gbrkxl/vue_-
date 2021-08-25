@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过渡-动画</title>
+    <style>
+        /* 指定显示过渡时的样式 */
+        .move-enter-active{
+            transition: all 1s;
+        }
+        /* 指定隐藏过渡时的样式 */
+        .move-leave-active{
+            transition: all 3s;
+        }
+        /* 指定隐藏时的样式 */
+        .move-enter,.move-leave-to{
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .bounce-enter-active{
+            animation: bounce-in 1s;
+        }
+        .bounce-leave-active{
+            animation: bounce-in 3s reverse;
+        }
+        @keyframes bounce-in{
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        通过标签控制css的transition,animation样式
+
+     -->
+    <div id="demo">
+        <button @click="show = !show">show</button>
+        <transition name="move">
+            <p v-show="show">show</p>
+        </transition>
+
+        <transition name="bounce">
+            <p v-show="show" style="display:inline-block;">Lorem</p>
+        </transition>
+    </div>
+
+<script src="./js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#demo',
+        data: {
+            show: true
+        }
+    })
+</script>
+</body>
+</html>

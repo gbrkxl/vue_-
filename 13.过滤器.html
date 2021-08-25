@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器</title>
+</head>
+<body>
+    <div id="demo">
+        <p>{{nowDate}}</p>
+        <p>{{nowDate | filterDate}}</p>
+        <p>{{nowDate | filterDate('HH:mm:ss')}}</p>
+    </div>
+<script src="./js/vue.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.24.0/moment.js"></script>
+<script>
+    Vue.filter('filterDate', function(value,formatStr='YYYY-MM-DD HH:mm:ss'){
+        return moment(value).format(formatStr)
+    })
+    new Vue({
+        el: '#demo',
+        data(){
+            return {
+                nowDate : Date.now()
+            }
+        }
+    })
+</script>
+</body>
+</html>
